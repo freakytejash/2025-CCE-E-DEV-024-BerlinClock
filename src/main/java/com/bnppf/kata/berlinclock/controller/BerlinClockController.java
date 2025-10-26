@@ -37,4 +37,10 @@ public class BerlinClockController {
             throw new IllegalArgumentException("Seconds must be between 0 and 59");
         }
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
 }
