@@ -1,5 +1,4 @@
 package com.bnppf.kata.berlinclock;
-
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -7,15 +6,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * The type Berlinclock application.
  */
 @SpringBootApplication
-public class BerlinclockApplication {
-
+public final class BerlinclockApplication {
+    private BerlinclockApplication() {
+        // Prevent instantiation
+    }
     /**
-     * The entry point of application.
+     * Main.
      *
-     * @param args the input arguments
+     * @param args the args
      */
-    public static void main(String[] args) {
-		SpringApplication.run(BerlinclockApplication.class, args);
+    public static void main(final String[] args) {
+        SpringApplication.run(BerlinclockApplication.class, args);
 	}
-
 }

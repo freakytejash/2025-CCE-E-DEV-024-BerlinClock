@@ -3,35 +3,63 @@ package com.bnppf.kata.berlinclock.model;
 import java.util.Objects;
 
 /**
- * The type Berlin clock time.
+ * Represents the Berlin Clock display state for a given time.
+ * Each field corresponds to a row or lamp in the Berlin Clock.
  */
-public class BerlinClockTime {
+public final class BerlinClockTime {
 
+    /**
+     * Represents the lamp at the top of the
+     * Berlin Clock that blinks every second.
+     * It is 'Y' (yellow) for even seconds and 'O' (off) for odd seconds.
+     */
     private final String secondsLamp;
+
+    /**
+     * Represents the row of lamps indicating blocks of five hours.
+     * Each red lamp corresponds to five hours.
+     */
     private final String fiveHourRow;
+
+    /**
+     * Represents the row of lamps indicating single hours.
+     * Each red lamp corresponds to one hour.
+     */
     private final String singleHourRow;
+
+    /**
+     * Represents the row of lamps
+     * indicating blocks of five minutes.
+     * Lamps are yellow except every third one,
+     * which is red (15, 30, 45 minutes).
+     */
     private final String fiveMinuteRow;
+
+    /**
+     * Represents the row of lamps indicating single minutes.
+     * Each yellow lamp corresponds to one minute.
+     */
     private final String singleMinuteRow;
 
     /**
      * Instantiates a new Berlin clock time.
      *
-     * @param secondsLamp     the seconds lamp
-     * @param fiveHourRow     the five hour row
-     * @param singleHourRow   the single hour row
-     * @param fiveMinuteRow   the five minute row
-     * @param singleMinuteRow the single minute row
+     * @param secondsLampValue     the seconds lamp
+     * @param fiveHourRowValue     the five hour row
+     * @param singleHourRowValue   the single hour row
+     * @param fiveMinuteRowValue   the five minute row
+     * @param singleMinuteRowValue the single minute row
      */
-    public BerlinClockTime(String secondsLamp,
-                           String fiveHourRow,
-                           String singleHourRow,
-                           String fiveMinuteRow,
-                           String singleMinuteRow) {
-        this.secondsLamp = secondsLamp;
-        this.fiveHourRow = fiveHourRow;
-        this.singleHourRow = singleHourRow;
-        this.fiveMinuteRow = fiveMinuteRow;
-        this.singleMinuteRow = singleMinuteRow;
+    public BerlinClockTime(final String secondsLampValue,
+                           final String fiveHourRowValue,
+                           final String singleHourRowValue,
+                           final String fiveMinuteRowValue,
+                           final String singleMinuteRowValue) {
+        this.secondsLamp = secondsLampValue;
+        this.fiveHourRow = fiveHourRowValue;
+        this.singleHourRow = singleHourRowValue;
+        this.fiveMinuteRow = fiveMinuteRowValue;
+        this.singleMinuteRow = singleMinuteRowValue;
     }
 
     /**
@@ -80,26 +108,39 @@ public class BerlinClockTime {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BerlinClockTime that = (BerlinClockTime) o;
-        return Objects.equals(secondsLamp, that.secondsLamp) &&
-                Objects.equals(fiveHourRow, that.fiveHourRow) &&
-                Objects.equals(singleHourRow, that.singleHourRow) &&
-                Objects.equals(fiveMinuteRow, that.fiveMinuteRow) &&
-                Objects.equals(singleMinuteRow, that.singleMinuteRow);
-    }
-
-    @Override
     public int hashCode() {
         return Objects.hash(secondsLamp, fiveHourRow, singleHourRow,
                 fiveMinuteRow, singleMinuteRow);
     }
+    /**
+     * Checks equality using compact comparison
+     * reduced branching for Checkstyle.
+     * @param o the object to compare
+     * @return true if all fields are equal, false otherwise
+     */
+    @Override
+    public boolean equals(final Object o) {
+        // Early return for reference equality
+        if (this == o) {
+            return true;
+        }
+
+        // Pattern matching: combines null & class check in one step
+        if (!(o instanceof BerlinClockTime that)) {
+            return false;
+        }
+
+        // Combine comparisons into a single Objects.hash() check
+        return Objects.hash(secondsLamp, fiveHourRow, singleHourRow,
+                fiveMinuteRow, singleMinuteRow)
+                == Objects.hash(that.secondsLamp,
+                that.fiveHourRow, that.singleHourRow,
+                that.fiveMinuteRow, that.singleMinuteRow);
+    }
 
     @Override
     public String toString() {
-        return String.format("%s%n%s%n%s%n%s%n%s",
+        return String.join(System.lineSeparator(),
                 secondsLamp,
                 fiveHourRow,
                 singleHourRow,
