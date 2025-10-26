@@ -50,4 +50,22 @@ class BerlinClockServiceTest {
         assertEquals("RRRR", service.getFiveHourRow(20));
         assertEquals("RRRR", service.getFiveHourRow(23));
     }
+
+    @Test
+    void shouldReturnAllOffLampsForZeroRemainingHours() {
+        assertEquals("OOOO", service.getSingleHourRow(0));
+        assertEquals("OOOO", service.getSingleHourRow(5));
+    }
+
+    @Test
+    void shouldReturnTwoRedLampsForTwoRemainingHours() {
+        assertEquals("RROO", service.getSingleHourRow(2));
+        assertEquals("RROO", service.getSingleHourRow(12));
+    }
+
+    @Test
+    void shouldReturnFourRedLampsForFourRemainingHours() {
+        assertEquals("RRRR", service.getSingleHourRow(4));
+        assertEquals("RRRR", service.getSingleHourRow(14));
+    }
 }
