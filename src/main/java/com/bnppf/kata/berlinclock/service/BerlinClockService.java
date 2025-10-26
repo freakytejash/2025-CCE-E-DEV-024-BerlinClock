@@ -15,11 +15,15 @@ public class BerlinClockService {
 
     public String getFiveHourRow(int hours) {
         int numberOfLamps = hours / 5;
-        return RED.repeat(numberOfLamps) + OFF.repeat(4 - numberOfLamps);
+        return buildLampRow(numberOfLamps, 4, RED);
     }
 
     public String getSingleHourRow(int hours) {
         int numberOfLamps = hours % 5;
-        return RED.repeat(numberOfLamps) + OFF.repeat(4 - numberOfLamps);
+        return buildLampRow(numberOfLamps, 4, RED);
+    }
+
+    private String buildLampRow(int onLamps, int totalLamps, String lampColor) {
+        return lampColor.repeat(onLamps) + OFF.repeat(totalLamps - onLamps);
     }
 }
