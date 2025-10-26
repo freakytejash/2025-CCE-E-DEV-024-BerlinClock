@@ -10,6 +10,11 @@ public class BerlinClockService {
     private static final String OFF = "O";
     private static final String RED = "R";
     private static final int QUARTER_HOUR_POSITION = 3;
+    private static final int HOURS_PER_LAMP_TOP_ROW = 5;
+    private static final int MINUTES_PER_LAMP_THIRD_ROW = 5;
+    private static final int TOTAL_LAMPS_HOUR_ROW = 4;
+    private static final int TOTAL_LAMPS_MINUTE_ROW = 4;
+    private static final int TOTAL_LAMPS_FIVE_MINUTE_ROW = 11;
 
     public BerlinClockTime convertTime(int hours, int minutes, int seconds) {
         return new BerlinClockTime(
@@ -26,13 +31,13 @@ public class BerlinClockService {
     }
 
     public String getFiveHourRow(int hours) {
-        int numberOfLamps = hours / 5;
-        return buildLampRow(numberOfLamps, 4, RED);
+        int numberOfLamps = hours / HOURS_PER_LAMP_TOP_ROW;
+        return buildLampRow(numberOfLamps, TOTAL_LAMPS_HOUR_ROW, RED);
     }
 
     public String getSingleHourRow(int hours) {
-        int numberOfLamps = hours % 5;
-        return buildLampRow(numberOfLamps, 4, RED);
+        int numberOfLamps = hours % HOURS_PER_LAMP_TOP_ROW;
+        return buildLampRow(numberOfLamps, TOTAL_LAMPS_HOUR_ROW, RED);
     }
 
     private String buildLampRow(int onLamps, int totalLamps, String lampColor) {
@@ -40,10 +45,10 @@ public class BerlinClockService {
     }
 
     public String getFiveMinuteRow(int minutes) {
-        int numberOfLamps = minutes / 5;
+        int numberOfLamps = minutes / MINUTES_PER_LAMP_THIRD_ROW;
         StringBuilder row = new StringBuilder();
 
-        for (int position = 1; position <= 11; position++) {
+        for (int position = 1; position <= TOTAL_LAMPS_FIVE_MINUTE_ROW; position++) {
             row.append(getLampColor(position, numberOfLamps));
         }
 
@@ -66,7 +71,7 @@ public class BerlinClockService {
     }
 
     public String getSingleMinuteRow(int minutes) {
-        int numberOfLamps = minutes % 5;
-        return buildLampRow(numberOfLamps, 4, YELLOW);
+        int numberOfLamps = minutes % MINUTES_PER_LAMP_THIRD_ROW;
+        return buildLampRow(numberOfLamps, TOTAL_LAMPS_MINUTE_ROW, YELLOW);
     }
 }
