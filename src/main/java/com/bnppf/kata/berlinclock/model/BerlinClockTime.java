@@ -2,6 +2,9 @@ package com.bnppf.kata.berlinclock.model;
 
 import java.util.Objects;
 
+/**
+ * The type Berlin clock time.
+ */
 public class BerlinClockTime {
 
     private final String secondsLamp;
@@ -10,6 +13,15 @@ public class BerlinClockTime {
     private final String fiveMinuteRow;
     private final String singleMinuteRow;
 
+    /**
+     * Instantiates a new Berlin clock time.
+     *
+     * @param secondsLamp     the seconds lamp
+     * @param fiveHourRow     the five hour row
+     * @param singleHourRow   the single hour row
+     * @param fiveMinuteRow   the five minute row
+     * @param singleMinuteRow the single minute row
+     */
     public BerlinClockTime(String secondsLamp,
                            String fiveHourRow,
                            String singleHourRow,
@@ -22,22 +34,47 @@ public class BerlinClockTime {
         this.singleMinuteRow = singleMinuteRow;
     }
 
+    /**
+     * Gets seconds lamp.
+     *
+     * @return the seconds lamp
+     */
     public String getSecondsLamp() {
         return secondsLamp;
     }
 
+    /**
+     * Gets five hour row.
+     *
+     * @return the five hour row
+     */
     public String getFiveHourRow() {
         return fiveHourRow;
     }
 
+    /**
+     * Gets single hour row.
+     *
+     * @return the single hour row
+     */
     public String getSingleHourRow() {
         return singleHourRow;
     }
 
+    /**
+     * Gets five minute row.
+     *
+     * @return the five minute row
+     */
     public String getFiveMinuteRow() {
         return fiveMinuteRow;
     }
 
+    /**
+     * Gets single minute row.
+     *
+     * @return the single minute row
+     */
     public String getSingleMinuteRow() {
         return singleMinuteRow;
     }

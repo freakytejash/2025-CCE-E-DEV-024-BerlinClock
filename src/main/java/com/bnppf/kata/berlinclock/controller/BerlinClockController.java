@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The type Berlin clock controller.
+ */
 @RestController
 @RequestMapping("/api/berlin-clock")
 public class BerlinClockController {
@@ -20,10 +23,23 @@ public class BerlinClockController {
     private static final int MIN_SECONDS = 0;
     private static final int MAX_SECONDS = 59;
 
+    /**
+     * Instantiates a new Berlin clock controller.
+     *
+     * @param berlinClockService the berlin clock service
+     */
     public BerlinClockController(BerlinClockService berlinClockService) {
         this.berlinClockService = berlinClockService;
     }
 
+    /**
+     * Gets berlin clock.
+     *
+     * @param hours   the hours
+     * @param minutes the minutes
+     * @param seconds the seconds
+     * @return the berlin clock
+     */
     @GetMapping
     public ResponseEntity<BerlinClockTime> getBerlinClock(
             @RequestParam int hours,
@@ -62,6 +78,12 @@ public class BerlinClockController {
         }
     }
 
+    /**
+     * Handle illegal argument exception response entity.
+     *
+     * @param ex the ex
+     * @return the response entity
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
         Map<String, String> error = new HashMap<>();
