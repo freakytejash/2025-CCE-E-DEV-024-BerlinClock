@@ -5,11 +5,20 @@ import com.bnppf.kata.berlinclock.service.BerlinClockService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/berlin-clock")
 public class BerlinClockController {
 
     private final BerlinClockService berlinClockService;
+    private static final int MIN_HOURS = 0;
+    private static final int MAX_HOURS = 23;
+    private static final int MIN_MINUTES = 0;
+    private static final int MAX_MINUTES = 59;
+    private static final int MIN_SECONDS = 0;
+    private static final int MAX_SECONDS = 59;
 
     public BerlinClockController(BerlinClockService berlinClockService) {
         this.berlinClockService = berlinClockService;
@@ -27,20 +36,37 @@ public class BerlinClockController {
     }
 
     private void validateTime(int hours, int minutes, int seconds) {
-        if (hours < 0 || hours > 23) {
-            throw new IllegalArgumentException("Hours must be between 0 and 23");
+        validateHours(hours);
+        validateMinutes(minutes);
+        validateSeconds(seconds);
+    }
+
+    private void validateHours(int hours) {
+        if (hours < MIN_HOURS || hours > MAX_HOURS) {
+            throw new IllegalArgumentException(
+                    String.format("Hours must be between %d and %d", MIN_HOURS, MAX_HOURS));
         }
-        if (minutes < 0 || minutes > 59) {
-            throw new IllegalArgumentException("Minutes must be between 0 and 59");
+    }
+
+    private void validateMinutes(int minutes) {
+        if (minutes < MIN_MINUTES || minutes > MAX_MINUTES) {
+            throw new IllegalArgumentException(
+                    String.format("Minutes must be between %d and %d", MIN_MINUTES, MAX_MINUTES));
         }
-        if (seconds < 0 || seconds > 59) {
-            throw new IllegalArgumentException("Seconds must be between 0 and 59");
+    }
+
+    private void validateSeconds(int seconds) {
+        if (seconds < MIN_SECONDS || seconds > MAX_SECONDS) {
+            throw new IllegalArgumentException(
+                    String.format("Seconds must be between %d and %d", MIN_SECONDS, MAX_SECONDS));
         }
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    public ResponseEntity<Map<String, String>> handleIllegalArgumentException(IllegalArgumentException ex) {
+        Map<String, String> error = new HashMap<>();
+        error.put("message", ex.getMessage());
+        return ResponseEntity.badRequest().body(error);
     }
 
 }
