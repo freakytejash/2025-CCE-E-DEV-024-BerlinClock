@@ -17,4 +17,9 @@ public class BerlinClockService {
         int numberOfLamps = hours / 5;
         return RED.repeat(numberOfLamps) + OFF.repeat(4 - numberOfLamps);
     }
+
+    public String getSingleHourRow(int hours) {
+        int numberOfLamps = hours % 5;
+        return RED.repeat(numberOfLamps) + OFF.repeat(4 - numberOfLamps);
+    }
 }
