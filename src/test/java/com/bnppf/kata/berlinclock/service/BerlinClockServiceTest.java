@@ -1,5 +1,6 @@
 package com.bnppf.kata.berlinclock.service;
 
+import com.bnppf.kata.berlinclock.model.BerlinClockTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -116,5 +117,38 @@ class BerlinClockServiceTest {
     void shouldReturnFourYellowLampsForFourRemainingMinutes() {
         assertEquals("YYYY", service.getSingleMinuteRow(4));
         assertEquals("YYYY", service.getSingleMinuteRow(59));
+    }
+
+    @Test
+    void shouldConvertMidnight() {
+        BerlinClockTime result = service.convertTime(0, 0, 0);
+
+        assertEquals("Y", result.getSecondsLamp());
+        assertEquals("OOOO", result.getFiveHourRow());
+        assertEquals("OOOO", result.getSingleHourRow());
+        assertEquals("OOOOOOOOOOO", result.getFiveMinuteRow());
+        assertEquals("OOOO", result.getSingleMinuteRow());
+    }
+
+    @Test
+    void shouldConvertThirteenSeventeenOne() {
+        BerlinClockTime result = service.convertTime(13, 17, 1);
+
+        assertEquals("O", result.getSecondsLamp());
+        assertEquals("RROO", result.getFiveHourRow());
+        assertEquals("RRRO", result.getSingleHourRow());
+        assertEquals("YYROOOOOOOO", result.getFiveMinuteRow());
+        assertEquals("YYOO", result.getSingleMinuteRow());
+    }
+
+    @Test
+    void shouldConvertMaxTime() {
+        BerlinClockTime result = service.convertTime(23, 59, 59);
+
+        assertEquals("O", result.getSecondsLamp());
+        assertEquals("RRRR", result.getFiveHourRow());
+        assertEquals("RRRO", result.getSingleHourRow());
+        assertEquals("YYRYYRYYRYY", result.getFiveMinuteRow());
+        assertEquals("YYYY", result.getSingleMinuteRow());
     }
 }
