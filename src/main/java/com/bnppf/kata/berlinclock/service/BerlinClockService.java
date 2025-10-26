@@ -8,9 +8,10 @@ public class BerlinClockService {
     private static final String YELLOW = "Y";
     private static final String OFF = "O";
     private static final String RED = "R";
+    private static final int QUARTER_HOUR_POSITION = 3;
 
     public String getSecondsLamp(int seconds) {
-        return seconds % 2 == 0 ? YELLOW : OFF;
+        return isEven(seconds) ? YELLOW : OFF;
     }
 
     public String getFiveHourRow(int hours) {
@@ -32,13 +33,24 @@ public class BerlinClockService {
         StringBuilder row = new StringBuilder();
 
         for (int position = 1; position <= 11; position++) {
-            if (position <= numberOfLamps) {
-                row.append(position % 3 == 0 ? RED : YELLOW);
-            } else {
-                row.append(OFF);
-            }
+            row.append(getLampColor(position, numberOfLamps));
         }
 
         return row.toString();
+    }
+
+    private String getLampColor(int position, int numberOfLamps) {
+        if (position > numberOfLamps) {
+            return OFF;
+        }
+        return isQuarterHourPosition(position) ? RED : YELLOW;
+    }
+
+    private boolean isQuarterHourPosition(int position) {
+        return position % QUARTER_HOUR_POSITION == 0;
+    }
+
+    private boolean isEven(int number) {
+        return number % 2 == 0;
     }
 }
