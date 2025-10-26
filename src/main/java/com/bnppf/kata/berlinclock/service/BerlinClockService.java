@@ -53,4 +53,9 @@ public class BerlinClockService {
     private boolean isEven(int number) {
         return number % 2 == 0;
     }
+
+    public String getSingleMinuteRow(int minutes) {
+        int numberOfLamps = minutes % 5;
+        return buildLampRow(numberOfLamps, 4, YELLOW);
+    }
 }
