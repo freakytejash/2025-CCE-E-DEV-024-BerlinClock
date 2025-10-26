@@ -1,5 +1,6 @@
 package com.bnppf.kata.berlinclock.service;
 
+import com.bnppf.kata.berlinclock.model.BerlinClockTime;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -9,6 +10,16 @@ public class BerlinClockService {
     private static final String OFF = "O";
     private static final String RED = "R";
     private static final int QUARTER_HOUR_POSITION = 3;
+
+    public BerlinClockTime convertTime(int hours, int minutes, int seconds) {
+        return new BerlinClockTime(
+                getSecondsLamp(seconds),
+                getFiveHourRow(hours),
+                getSingleHourRow(hours),
+                getFiveMinuteRow(minutes),
+                getSingleMinuteRow(minutes)
+        );
+    }
 
     public String getSecondsLamp(int seconds) {
         return isEven(seconds) ? YELLOW : OFF;
